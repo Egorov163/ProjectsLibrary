@@ -1,5 +1,8 @@
 ﻿namespace App
 {
+    /// <summary>
+    /// Приложение.
+    /// </summary>
     class App
     {
         // Контексты.
