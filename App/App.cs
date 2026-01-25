@@ -1,6 +1,7 @@
 ﻿using App.BL.Data;
 using App.BL.Data.Repositories;
 using App.BL.Moduls;
+using App.BL.Services;
 
 namespace App
 {
@@ -11,10 +12,10 @@ namespace App
     {
         // Контексты.
         private readonly AppDbContext appDbContext;
-        // Модули.
-        private readonly UserModul userModul;
         // Репозитории.
         private readonly UserRepository userRepository;
+        // Модули.
+        private readonly UserModul userModul;
 
         public App()
         {

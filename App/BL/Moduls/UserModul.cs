@@ -1,5 +1,6 @@
 ﻿using App.BL.Data.DbModels;
 using App.BL.Data.Repositories;
+using App.BL.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +12,10 @@ namespace App.BL.Moduls
     /// </summary>
     class UserModul
     {
-        private UserRepository userRepository;
+        // Репозитории.
+        private readonly UserRepository userRepository;
+        //Сервисы.
+        private readonly UserService userService;
 
         /// <summary>
         /// Создать мудуль.
@@ -19,7 +23,10 @@ namespace App.BL.Moduls
         /// <param name="userRepository">Репозиторий с пользоватлеями</param>
         public UserModul(UserRepository userRepository)
         {
+            // Репозитории.
             this.userRepository = userRepository;
+            //Сервисы.
+            userService = new UserService(userRepository);
         }
 
         public void Start()
@@ -49,6 +56,7 @@ namespace App.BL.Moduls
                         AddUser();
                         break;
                     case 2:
+                        RemoveUser();
                         break;
                     case 3:
                         ShowAllUser();
@@ -74,14 +82,8 @@ namespace App.BL.Moduls
             Console.WriteLine("Введите пароль");
             var password = Console.ReadLine();
 
-            var user = new UserDbModel()
-            {
-                Name = name,
-                Password = password
-            };
-
-            userRepository.Add(user);
-            Console.WriteLine("\tПользователь создан!");
+            userService.AddUser(name, password);
+            Console.WriteLine("Пользователь создан!");
         }
 
         /// <summary>
@@ -89,7 +91,7 @@ namespace App.BL.Moduls
         /// </summary>
         private void ShowAllUser()
         {
-            var users = userRepository.GetAll();
+            var users = userService.GetAllUsers();
 
             foreach (var user in users)
             {
@@ -103,7 +105,8 @@ namespace App.BL.Moduls
 
             if (id > 0)
             {
-                userRepository.Remove(id);
+                userService.RemoveUser(id);
+                Console.WriteLine("Пользователь удалён");
             }
         }
 
@@ -117,7 +120,7 @@ namespace App.BL.Moduls
             Console.WriteLine(RequestText);
             string request;
 
-            do
+            while (true)
             {
                 request = Console.ReadLine();
 
@@ -125,13 +128,13 @@ namespace App.BL.Moduls
                 {
                     return result;
                 }
-                else
+                else if (request == "q!")
                 {
-                    Console.WriteLine("Некорректный запрос, попробуй ещё раз, если хотите выйти введите q!");
+                    return -1;
                 }
-            } while (request != "q!");
 
-            return -1;
+                Console.WriteLine("Некорректный запрос, попробуй ещё раз, если хотите выйти введите q!");
+            }
         }
     }
 }
