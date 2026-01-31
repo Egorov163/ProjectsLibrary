@@ -1,7 +1,6 @@
 ﻿using App.BL.Data;
 using App.BL.Data.Repositories;
 using App.BL.Moduls;
-using App.BL.Services;
 
 namespace App
 {
@@ -25,10 +24,10 @@ namespace App
             userRepository = new UserRepository(appDbContext);
             // Модули.
             userModul = new UserModul(userRepository);
+        }
+        public void Start()
+        {
+            userModul.Start();
+        }
     }
-    public void Start()
-    {
-        userModul.Start();
-    }
-}
 }

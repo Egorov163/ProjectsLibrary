@@ -1,9 +1,6 @@
-﻿using App.BL.Data.DbModels;
-using App.BL.Data.Repositories;
+﻿using App.BL.Data.Repositories;
 using App.BL.Services;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace App.BL.Moduls
 {
