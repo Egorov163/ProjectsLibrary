@@ -30,8 +30,10 @@ namespace App.BL.Services
             var user = new UserDbModel()
             {
                 Name = name,
-                Password = password
-            };
+                //Password = password
+
+                Password = BCrypt.Net.BCrypt.HashPassword(password)
+        };
 
             userRepository.Add(user);
         }
