@@ -1,6 +1,5 @@
 ﻿using App.BL.Data.DbModels;
 using App.BL.Data.Repositories;
-using System.Collections.Generic;
 
 namespace App.BL.Services
 {
@@ -30,10 +29,8 @@ namespace App.BL.Services
             var user = new UserDbModel()
             {
                 Name = name,
-                //Password = password
-
                 Password = BCrypt.Net.BCrypt.HashPassword(password)
-        };
+            };
 
             userRepository.Add(user);
         }
