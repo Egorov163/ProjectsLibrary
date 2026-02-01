@@ -1,4 +1,5 @@
-﻿using App.BL.Data.Repositories;
+﻿using App.BL.Contexts;
+using App.BL.Data.Repositories;
 using App.BL.Services;
 using System;
 
@@ -9,21 +10,21 @@ namespace App.BL.Moduls
     /// </summary>
     class UserModul
     {
-        // Репозитории.
-        private readonly UserRepository userRepository;
-        //Сервисы.
-        private readonly UserService userService;
+        // Контексты.
+        private readonly UserContext _userContext;
+        // Сервисы.
+        private readonly UserService _userService;
 
         /// <summary>
         /// Создать мудуль.
         /// </summary>
         /// <param name="userRepository">Репозиторий с пользоватлеями</param>
-        public UserModul(UserRepository userRepository)
+        public UserModul(UserContext userContext, UserService userService)
         {
-            // Репозитории.
-            this.userRepository = userRepository;
-            //Сервисы.
-            userService = new UserService(userRepository);
+            // Контексты.
+            _userContext = userContext;
+            // Сервисы.
+            _userService = userService;
         }
 
         public void Start()
@@ -79,8 +80,10 @@ namespace App.BL.Moduls
             Console.WriteLine("Введите пароль");
             var password = Console.ReadLine();
 
-            userService.AddUser(name, password);
+            _userService.AddUser(name, password);
             Console.WriteLine("Пользователь создан!");
+
+            _userContext.CurrentUser = _userService.GetUserByName(name);
         }
 
         /// <summary>
@@ -88,7 +91,7 @@ namespace App.BL.Moduls
         /// </summary>
         private void ShowAllUser()
         {
-            var users = userService.GetAllUsers();
+            var users = _userService.GetAllUsers();
 
             foreach (var user in users)
             {
@@ -102,7 +105,7 @@ namespace App.BL.Moduls
 
             if (id > 0)
             {
-                userService.RemoveUser(id);
+                _userService.RemoveUser(id);
                 Console.WriteLine("Пользователь удалён");
             }
         }

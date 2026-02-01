@@ -7,5 +7,10 @@ namespace App.BL.Data.Repositories
         public UserRepository(AppDbContext appDbContext) : base(appDbContext)
         {
         }
+
+        public UserDbModel? GetByName(string name)
+        {
+            return _appDbContext.Users.FirstOrDefault(u => u.Name == name);
+        }
     }
 }

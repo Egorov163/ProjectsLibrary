@@ -52,5 +52,10 @@ namespace App.BL.Services
         {
             return userRepository.GetAll();
         }
+
+        public UserDbModel? GetUserByName(string name)
+        {
+            return userRepository.GetByName(name);
+        }
     }
 }

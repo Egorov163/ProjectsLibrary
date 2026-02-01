@@ -1,6 +1,8 @@
-﻿using App.BL.Data;
+﻿using App.BL.Contexts;
+using App.BL.Data;
 using App.BL.Data.Repositories;
 using App.BL.Moduls;
+using App.BL.Services;
 
 namespace App
 {
@@ -9,25 +11,17 @@ namespace App
     /// </summary>
     class App
     {
-        // Контексты.
-        private readonly AppDbContext appDbContext;
-        // Репозитории.
-        private readonly UserRepository userRepository;
         // Модули.
-        private readonly UserModul userModul;
+        private readonly UserModul _userModul;
 
-        public App()
+        public App(UserModul userModul)
         {
-            // Контексты.
-            appDbContext = new AppDbContext();
-            // Репозитории.
-            userRepository = new UserRepository(appDbContext);
             // Модули.
-            userModul = new UserModul(userRepository);
+            _userModul = userModul;
         }
         public void Start()
         {
-            userModul.Start();
+            _userModul.Start();
         }
     }
 }

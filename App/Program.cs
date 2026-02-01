@@ -1,4 +1,6 @@
-﻿using App.BL.Data.Repositories;
+﻿using App.BL.Contexts;
+using App.BL.Data;
+using App.BL.Data.Repositories;
 using App.BL.Moduls;
 using App.BL.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +13,9 @@ namespace App
         {
             var services = new ServiceCollection();
 
+            // Контексты
+            services.AddScoped<AppDbContext>();
+            services.AddScoped<UserContext>();
             // Репозитории
             services.AddScoped<UserRepository>();
             // Сервисы
