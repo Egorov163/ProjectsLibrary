@@ -1,7 +1,6 @@
 ﻿using App.BL.Contexts;
-using App.BL.Data.Repositories;
+using App.BL.Data.DbModels;
 using App.BL.Services;
-using System;
 
 namespace App.BL.Moduls
 {
@@ -33,22 +32,22 @@ namespace App.BL.Moduls
 
             while (!isExit)
             {
-                Console.WriteLine("Модуль: Пользователи\n");
-
-                CheckCurentUserView();
+                Console.WriteLine("\nМодуль: Пользователи");
 
                 Console.WriteLine($"\nВыберите действие:" +
                     "\n1 - создать пользователя" +
                     "\n2 - удалить пользователя" +
                     "\n3 - вывести пользователей" +
-                    "\n4 - выход");
+                    "\n4 - авторизация");
 
                 Actions();
+
+                Console.Clear();
 
                 isExit = true;
             }
 
-            Console.Clear();
+
         }
 
         private void Actions()
@@ -70,6 +69,9 @@ namespace App.BL.Moduls
                     case 3:
                         ShowAllUser();
                         break;
+                    case 4:
+                        Authorization();
+                        break;
                     case -1:
                         exit = true;
                         break;
@@ -82,19 +84,65 @@ namespace App.BL.Moduls
         }
 
         /// <summary>
+        /// Авторизация.
+        /// </summary>
+        private void Authorization()
+        {
+            var user = RequestNameAndPassword();
+
+            if (user != null)
+            {
+                _userService.GetUser(user);
+                _userContext.CurrentUser = user;
+                Console.WriteLine($"Вы вошли как {user.Name}.");
+            }
+            else
+            {
+                Console.WriteLine("Вы ввели неверное имя или пароль.");
+            }
+        }
+
+        /// <summary>
+        /// Запросить логин и пароль у пользователя.
+        /// </summary>
+        /// <returns>Модель пользователя с логином и паролем.</returns>
+        private UserDbModel? RequestNameAndPassword()
+        {
+            Console.WriteLine("Введите имя пользователя");
+            var name = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                Console.WriteLine("Введите пароль");
+                var password = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(password))
+                {
+                    return new UserDbModel()
+                    {
+                        Name = name,
+                        Password = password
+                    };
+                }
+            }
+
+            Console.WriteLine("Вы не ввели имя или пароль");
+            return null;
+        }
+
+        /// <summary>
         /// Добавить пользователя.
         /// </summary>
         private void AddUser()
         {
-            Console.WriteLine("Введите имя пользователя");
-            var name = Console.ReadLine();
-            Console.WriteLine("Введите пароль");
-            var password = Console.ReadLine();
+            var user = RequestNameAndPassword();
 
-            _userService.AddUser(name, password);
-            Console.WriteLine("Пользователь создан!");
-
-            _userContext.CurrentUser = _userService.GetUserByName(name);
+            if (user is not null)
+            {
+                _userService.AddUser(user);
+                Console.WriteLine("Пользователь создан!");
+                _userContext.CurrentUser = _userService.GetUserByName(user.Name);
+            }
         }
 
         /// <summary>
@@ -124,18 +172,18 @@ namespace App.BL.Moduls
             }
         }
 
-        
 
 
-        private void CheckCurentUserView()
+
+        public void CheckCurentUserView()
         {
             if (_userContext.IsAuthenticated())
             {
-                Console.WriteLine($"Здравствуйте, {_userContext.CurrentUser}");
+                Console.WriteLine($"Здравствуйте, {_userContext.CurrentUser.Name}\n");
             }
             else
             {
-                Console.WriteLine("Вы не авторизованы.");
+                Console.WriteLine("Вы не авторизованы.\n");
             }
         }
 

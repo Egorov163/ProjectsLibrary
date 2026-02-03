@@ -8,7 +8,7 @@ namespace App.BL.Services
         /// <summary>
         /// Репозитории.
         /// </summary>
-        private readonly UserRepository userRepository;
+        private readonly UserRepository _userRepository;
 
         /// <summary>
         /// Создать сервис Пользователи.
@@ -16,7 +16,7 @@ namespace App.BL.Services
         /// <param name="userRepository"></param>
         public UserService(UserRepository userRepository)
         {
-            this.userRepository = userRepository;
+            this._userRepository = userRepository;
         }
 
         /// <summary>
@@ -32,7 +32,15 @@ namespace App.BL.Services
                 Password = BCrypt.Net.BCrypt.HashPassword(password)
             };
 
-            userRepository.Add(user);
+            _userRepository.Add(user);
+        }
+
+        public void AddUser(UserDbModel user)
+        {
+            var badPassword = user.Password;
+            user.Password = BCrypt.Net.BCrypt.HashPassword(badPassword);
+
+            _userRepository.Add(user);
         }
 
         /// <summary>
@@ -41,7 +49,7 @@ namespace App.BL.Services
         /// <param name="id">id пользователя.</param>
         public void RemoveUser(int id)
         {
-            var user = userRepository.Remove(id);
+            var user = _userRepository.Remove(id);
         }
 
         /// <summary>
@@ -50,12 +58,22 @@ namespace App.BL.Services
         /// <returns>Список пользователей</returns>
         public List<UserDbModel> GetAllUsers()
         {
-            return userRepository.GetAll();
+            return _userRepository.GetAll();
         }
 
+        /// <summary>
+        /// Получить пользователя по имени
+        /// </summary>
+        /// <param name="name">Имя</param>
+        /// <returns>Пользователь</returns>
         public UserDbModel? GetUserByName(string name)
         {
-            return userRepository.GetByName(name);
+            return _userRepository.GetUserByName(name);
+        }
+
+        public UserDbModel? GetUser(UserDbModel user)
+        {
+            return _userRepository.GetUserByNameAndPassword(user.Name, user.Password);
         }
     }
 }

@@ -8,9 +8,14 @@ namespace App.BL.Data.Repositories
         {
         }
 
-        public UserDbModel? GetByName(string name)
+        public UserDbModel? GetUserByName(string name)
         {
             return _appDbContext.Users.FirstOrDefault(u => u.Name == name);
+        }
+
+        public UserDbModel? GetUserByNameAndPassword(string login, string password)
+        {
+            return _appDbContext.Users.FirstOrDefault(u => u.Name == login && u.Password == password);
         }
     }
 }

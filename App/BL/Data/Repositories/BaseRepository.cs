@@ -1,7 +1,5 @@
 ﻿using App.BL.Data.DbModels;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace App.BL.Data.Repositories
 {

@@ -1,7 +1,4 @@
-﻿using App.BL.Contexts;
-using App.BL.Data;
-using App.BL.Data.Repositories;
-using App.BL.Moduls;
+﻿using App.BL.Moduls;
 using App.BL.Services;
 
 namespace App
@@ -11,29 +8,26 @@ namespace App
     /// </summary>
     class App
     {
-        // Модули.
-        private readonly UserModul _userModul;
-
+        /// <summary>
+        /// Список модулей.
+        /// </summary>
         private List<IModul> _modulsList;
+        private readonly UserModul _userModul;
 
         public App(UserModul userModul)
         {
-            // Модули.
             _userModul = userModul;
 
             _modulsList = new List<IModul>
             {
-                _userModul
+                // Модули.
+                userModul
             };
         }
         public void Start()
         {
-            Console.WriteLine("Вас приветствует универсальное приложение Дяди Сани!");
-            
-
-                //ShowModulesList();
-
-                PickModul();
+            Console.WriteLine("Вас приветствует универсальное приложение Дяди Сани!\n");
+            PickModul();
         }
 
         private void ShowModulesList()
@@ -52,7 +46,10 @@ namespace App
         {
             while (true)
             {
+                _userModul.CheckCurentUserView();
+
                 ShowModulesList();
+
                 Console.WriteLine("Выберите модуль:");
                 var request = HelperService.RequestIntInput();
 
@@ -65,7 +62,7 @@ namespace App
                 {
                     Environment.Exit(0);
                 }
-                else 
+                else
                 {
                     Console.WriteLine("Введите корректный запрос.");
                 }
