@@ -8,7 +8,7 @@ namespace App.BL.Moduls
     /// <summary>
     /// Модуль Пользователи
     /// </summary>
-    class UserModul
+    class UserModul : IModul
     {
         // Контексты.
         private readonly UserContext _userContext;
@@ -29,15 +29,26 @@ namespace App.BL.Moduls
 
         public void Start()
         {
-            Console.WriteLine("Модуль: Пользователи");
-            Console.WriteLine($"Выберите действие:" +
-                "\n1 - создать пользователя" +
-                "\n2 - удалить пользователя" +
-                "\n3 - вывести пользователей" +
-                "\n4 - выход");
+            var isExit = false;
 
-            Actions();
+            while (!isExit)
+            {
+                Console.WriteLine("Модуль: Пользователи\n");
 
+                CheckCurentUserView();
+
+                Console.WriteLine($"\nВыберите действие:" +
+                    "\n1 - создать пользователя" +
+                    "\n2 - удалить пользователя" +
+                    "\n3 - вывести пользователей" +
+                    "\n4 - выход");
+
+                Actions();
+
+                isExit = true;
+            }
+
+            Console.Clear();
         }
 
         private void Actions()
@@ -46,7 +57,7 @@ namespace App.BL.Moduls
 
             while (!exit)
             {
-                var request = RequestUser();
+                var request = HelperService.RequestIntInput();
 
                 switch (request)
                 {
@@ -59,7 +70,7 @@ namespace App.BL.Moduls
                     case 3:
                         ShowAllUser();
                         break;
-                    case 4:
+                    case -1:
                         exit = true;
                         break;
 
@@ -99,9 +110,12 @@ namespace App.BL.Moduls
             }
         }
 
+        /// <summary>
+        /// Удалить пользователя.
+        /// </summary>
         private void RemoveUser()
         {
-            var id = RequestUser("Введи id пользователя, которого хочешь удалить");
+            var id = HelperService.RequestIntInput("Введи id пользователя, которого хочешь удалить");
 
             if (id > 0)
             {
@@ -110,31 +124,24 @@ namespace App.BL.Moduls
             }
         }
 
-        /// <summary>
-        /// Запрашивает ответ у пользователя и проверяет на корректность, ответ должен быть int.
-        /// </summary>
-        /// <param name="RequestText">Текст к запросу.</param>
-        /// <returns>int, если -1, то пользователь отказался вводить запрос.</returns>
-        private int RequestUser(string RequestText = "")
+        
+
+
+        private void CheckCurentUserView()
         {
-            Console.WriteLine(RequestText);
-            string request;
-
-            while (true)
+            if (_userContext.IsAuthenticated())
             {
-                request = Console.ReadLine();
-
-                if (int.TryParse(request, out int result))
-                {
-                    return result;
-                }
-                else if (request == "q!")
-                {
-                    return -1;
-                }
-
-                Console.WriteLine("Некорректный запрос, попробуй ещё раз, если хотите выйти введите q!");
+                Console.WriteLine($"Здравствуйте, {_userContext.CurrentUser}");
             }
+            else
+            {
+                Console.WriteLine("Вы не авторизованы.");
+            }
+        }
+
+        public override string ToString()
+        {
+            return "Модуль: Пользователи";
         }
     }
 }
