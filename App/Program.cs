@@ -18,18 +18,21 @@ namespace App
             services.AddScoped<UserContext>();
             // Репозитории
             services.AddScoped<UserRepository>();
+            services.AddScoped<TeaRepository>();
             // Сервисы
             services.AddTransient<UserService>();
+            services.AddTransient<TeaService>();
             // Модули
             services.AddTransient<UserModul>();
+            services.AddTransient<TeaModul>();
             // Приложение
             services.AddScoped<App>();
 
             var servicesProvider = services.BuildServiceProvider();
 
             var app = servicesProvider.GetRequiredService<App>();
-            app.Start();
 
+            app.Start();
         }
     }
 }

@@ -13,15 +13,18 @@ namespace App
         /// </summary>
         private List<IModul> _modulsList;
         private readonly UserModul _userModul;
+        private readonly TeaModul _teaModul;
 
-        public App(UserModul userModul)
+        public App(UserModul userModul, TeaModul teaModul)
         {
             _userModul = userModul;
+            _teaModul = teaModul;
 
             _modulsList = new List<IModul>
             {
                 // Модули.
-                userModul
+                userModul,
+                teaModul
             };
         }
         public void Start()

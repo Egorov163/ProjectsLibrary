@@ -7,7 +7,7 @@ namespace App.BL.Moduls
     /// <summary>
     /// Модуль Пользователи
     /// </summary>
-    class UserModul : IModul
+    public class UserModul : IModul
     {
         // Контексты.
         private readonly UserContext _userContext;
@@ -32,7 +32,7 @@ namespace App.BL.Moduls
 
             while (!isExit)
             {
-                Console.WriteLine("\nМодуль: Пользователи");
+                Console.WriteLine($"\n{ToString()}");
 
                 Console.WriteLine($"\nВыберите действие:" +
                     "\n1 - создать пользователя" +
@@ -46,8 +46,6 @@ namespace App.BL.Moduls
 
                 isExit = true;
             }
-
-
         }
 
         private void Actions()

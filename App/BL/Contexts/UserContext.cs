@@ -2,7 +2,7 @@
 
 namespace App.BL.Contexts
 {
-    class UserContext
+    public class UserContext
     {
         /// <summary>
         /// Текущий пользователь.
