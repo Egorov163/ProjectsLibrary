@@ -23,7 +23,7 @@ namespace App.BL.Data.DbModels
         /// <summary>
         /// Дата покупки.
         /// </summary>
-        public DateTime? DateBuy { get; set; }
+        public DateTimeOffset? DateBuy { get; set; }
         /// <summary>
         /// Описание чая.
         /// </summary>

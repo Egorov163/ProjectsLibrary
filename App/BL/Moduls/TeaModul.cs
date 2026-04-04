@@ -66,7 +66,7 @@ namespace App.BL.Moduls
                     case 3:
                         ShowAllTea();
                         break;
-                    case -1:
+                    case null:
                         exit = true;
                         break;
 
@@ -115,7 +115,7 @@ namespace App.BL.Moduls
                         DateBuy = dateBuy
                     };
 
-                    var a = tea;
+                    _teaService.AddTea(tea);
                 }
             }
         }

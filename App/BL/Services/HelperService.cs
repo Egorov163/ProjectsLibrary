@@ -9,7 +9,7 @@ namespace App.BL.Services
         /// </summary>
         /// <param name="RequestText">Текст к запросу.</param>
         /// <returns>int, если -1, то пользователь отказался вводить запрос.</returns>
-        public static int RequestIntInput(string requestText = "")
+        public static int? RequestIntInput(string requestText = "")
         {
             Console.WriteLine(requestText);
             string request;
@@ -24,7 +24,7 @@ namespace App.BL.Services
                 }
                 else if (request == "q!")
                 {
-                    return -1;
+                    return null;
                 }
 
                 Console.WriteLine("Некорректный запрос, попробуй ещё раз, если хотите выйти введите q!");
@@ -46,13 +46,14 @@ namespace App.BL.Services
                 request = Console.ReadLine();
                 var stopWord = "q!";
 
-                if (!string.IsNullOrWhiteSpace(request))
-                {
-                    return request;
-                }
-                else if (request == stopWord)
+                if (request == stopWord)
                 {
                     return null;
+                }
+                else if (!string.IsNullOrWhiteSpace(request))
+                {
+                    
+                    return request;
                 }
 
                 Console.WriteLine("Некорректный запрос, попробуй ещё раз, если хотите выйти введите q!");
@@ -86,13 +87,13 @@ namespace App.BL.Services
             {
                 var request = RequestIntInput();
 
-                if (request > 0 && countEnum >= request)
-                {
-                    return request;
-                }
-                else if (request == -1)
+                if (request is null)
                 {
                     return null;
+                }
+                else if(request > 0 && (countEnum - 1) >= request)
+                {
+                    return request;
                 }
                 else
                 {
@@ -106,7 +107,7 @@ namespace App.BL.Services
         /// </summary>
         /// <param name="requestText">Текст к запросу.</param>
         /// <returns>Ответ пользователя или null, если null, то пользователь отказался вводить запрос.</returns>
-        public static DateTime? RequestDateTimeInput(string requestText = "")
+        public static DateTimeOffset? RequestDateTimeInput(string requestText = "")
         {
             Console.WriteLine(requestText);
 
@@ -114,8 +115,8 @@ namespace App.BL.Services
             {
                 var requestStr = RequestStringInput();
 
-                if (DateTime.TryParseExact(requestStr, "dd.MM.yyyy", 
-                    CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result))
+                if (DateTimeOffset.TryParseExact(requestStr, "dd.MM.yyyy",
+                    CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTimeOffset result))
                 {
                     return result;
                 }

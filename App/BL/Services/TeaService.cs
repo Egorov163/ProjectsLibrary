@@ -1,4 +1,5 @@
-﻿using App.BL.Data.Repositories;
+﻿using App.BL.Data.DbModels;
+using App.BL.Data.Repositories;
 using App.BL.Data.Tea;
 
 namespace App.BL.Services
@@ -19,6 +20,9 @@ namespace App.BL.Services
             _teaRepository = teaRepository;
         }
 
-        
+        public void AddTea(TeaDbModel teaDbModel)
+        {
+            _teaRepository.Add(teaDbModel);
+        }
     }
 }

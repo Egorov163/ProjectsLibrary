@@ -12,7 +12,11 @@ namespace App
         /// Список модулей.
         /// </summary>
         private List<IModul> _modulsList;
+
+        // Пользователи
         private readonly UserModul _userModul;
+
+        // Чай
         private readonly TeaModul _teaModul;
 
         public App(UserModul userModul, TeaModul teaModul)
@@ -27,6 +31,10 @@ namespace App
                 teaModul
             };
         }
+
+        /// <summary>
+        /// Запуск приложения.
+        /// </summary>
         public void Start()
         {
             Console.WriteLine("Вас приветствует универсальное приложение Дяди Сани!\n");
@@ -56,14 +64,14 @@ namespace App
                 Console.WriteLine("Выберите модуль:");
                 var request = HelperService.RequestIntInput();
 
-                if (request >= 0 && (_modulsList.Count - 1) >= request)
-                {
-                    var modul = _modulsList[request];
-                    modul.Start();
-                }
-                else if (request == -1)
+                if (request is null)
                 {
                     Environment.Exit(0);
+                }
+                else if (request >= 0 && (_modulsList.Count - 1) >= request)
+                {
+                    var modul = _modulsList[(int)request];
+                    modul.Start();
                 }
                 else
                 {

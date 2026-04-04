@@ -61,7 +61,7 @@ namespace App.BL.Data.Repositories
         /// </summary>
         /// <param name="id">id сущности.</param>
         /// <returns>Сущность.</returns>
-        public virtual DbModel GetById(int id)
+        public virtual DbModel? GetById(int id)
         {
             return _entities.FirstOrDefault(e => e.Id == id);
         }

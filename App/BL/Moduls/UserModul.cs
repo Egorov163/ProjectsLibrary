@@ -1,5 +1,4 @@
 ﻿using App.BL.Contexts;
-using App.BL.Data.DbModels;
 using App.BL.Services;
 
 namespace App.BL.Moduls
@@ -34,7 +33,7 @@ namespace App.BL.Moduls
             {
                 Console.WriteLine($"\n{ToString()}");
 
-                Console.WriteLine($"\nВыберите действие:" +
+                Console.WriteLine(
                     "\n1 - создать пользователя" +
                     "\n2 - удалить пользователя" +
                     "\n3 - вывести пользователей" +
@@ -54,6 +53,8 @@ namespace App.BL.Moduls
 
             while (!exit)
             {
+                Console.WriteLine($"\nВыберите действие:");
+
                 var request = HelperService.RequestIntInput();
 
                 switch (request)
@@ -70,7 +71,7 @@ namespace App.BL.Moduls
                     case 4:
                         Authorization();
                         break;
-                    case -1:
+                    case null:
                         exit = true;
                         break;
 
@@ -86,13 +87,21 @@ namespace App.BL.Moduls
         /// </summary>
         private void Authorization()
         {
-            var user = RequestNameAndPassword();
+            var name = HelperService.RequestStringInput("Введите имя пользователя");
+            var password = HelperService.RequestStringInput("Введите пароль");
 
-            if (user != null)
+            if (name is not null)
             {
-                _userService.GetUser(user);
-                _userContext.CurrentUser = user;
-                Console.WriteLine($"Вы вошли как {user.Name}.");
+                var user = _userService.GetUserByName(name);
+                if (user is not null)
+                {
+                    _userContext.CurrentUser = user;
+                    Console.WriteLine($"Вы вошли как {user.Name}.");
+                }
+                else
+                {
+                    Console.WriteLine("Вы ввели неверный логин или пароль");
+                }
             }
             else
             {
@@ -101,45 +110,30 @@ namespace App.BL.Moduls
         }
 
         /// <summary>
-        /// Запросить логин и пароль у пользователя.
-        /// </summary>
-        /// <returns>Модель пользователя с логином и паролем.</returns>
-        private UserDbModel? RequestNameAndPassword()
-        {
-            Console.WriteLine("Введите имя пользователя");
-            var name = Console.ReadLine();
-
-            if (!string.IsNullOrWhiteSpace(name))
-            {
-                Console.WriteLine("Введите пароль");
-                var password = Console.ReadLine();
-
-                if (!string.IsNullOrWhiteSpace(password))
-                {
-                    return new UserDbModel()
-                    {
-                        Name = name,
-                        Password = password
-                    };
-                }
-            }
-
-            Console.WriteLine("Вы не ввели имя или пароль");
-            return null;
-        }
-
-        /// <summary>
         /// Добавить пользователя.
         /// </summary>
         private void AddUser()
         {
-            var user = RequestNameAndPassword();
+            var name = HelperService.RequestStringInput("Введите имя пользователя");
 
-            if (user is not null)
+            if (name is not null)
             {
-                _userService.AddUser(user);
-                Console.WriteLine("Пользователь создан!");
-                _userContext.CurrentUser = _userService.GetUserByName(user.Name);
+                var password = HelperService.RequestStringInput("Введите пароль");
+
+                if (password is not null)
+                {
+                    _userService.AddUser(name, password);
+                    Console.WriteLine("Пользователь создан!");
+                    _userContext.CurrentUser = _userService.GetUserByName(name);
+                }
+                else
+                {
+                    Console.WriteLine("Вы не ввели пароль");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Вы не ввели имя");
             }
         }
 
@@ -163,9 +157,9 @@ namespace App.BL.Moduls
         {
             var id = HelperService.RequestIntInput("Введи id пользователя, которого хочешь удалить");
 
-            if (id > 0)
+            if (id is not null)
             {
-                _userService.RemoveUser(id);
+                _userService.RemoveUser((int)id);
                 Console.WriteLine("Пользователь удалён");
             }
         }
