@@ -29,10 +29,15 @@ namespace ProjectsLibraryWinForms.Forms.Users
 
         }
 
-        private void buAddUser_Click(object sender, EventArgs e)
+        private void butAddUser_Click(object sender, EventArgs e)
         {
             var listUsersForms = new AddUserForm(_userService);
             listUsersForms.ShowDialog();
+
+            if (listUsersForms.DialogResult == DialogResult.OK)
+            {
+                ListUsers_Load( sender, e);
+            }
         }
     }
 }

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             dataGridView1 = new DataGridView();
-            buAddUser = new Button();
+            butAddUser = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -43,24 +43,24 @@
             dataGridView1.TabIndex = 0;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
-            // buAddUser
+            // butAddUser
             // 
-            buAddUser.Location = new Point(12, 357);
-            buAddUser.Name = "buAddUser";
-            buAddUser.Size = new Size(151, 37);
-            buAddUser.TabIndex = 1;
-            buAddUser.Text = "Добавить";
-            buAddUser.UseVisualStyleBackColor = true;
-            buAddUser.Click += buAddUser_Click;
+            butAddUser.Location = new Point(12, 357);
+            butAddUser.Name = "butAddUser";
+            butAddUser.Size = new Size(151, 37);
+            butAddUser.TabIndex = 1;
+            butAddUser.Text = "Добавить";
+            butAddUser.UseVisualStyleBackColor = true;
+            butAddUser.Click += butAddUser_Click;
             // 
-            // ListUsers
+            // ListUsersForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(buAddUser);
+            Controls.Add(butAddUser);
             Controls.Add(dataGridView1);
-            Name = "ListUsers";
+            Name = "ListUsersForm";
             Text = "ListUsers";
             Load += ListUsers_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
@@ -70,6 +70,6 @@
         #endregion
 
         private DataGridView dataGridView1;
-        private Button buAddUser;
+        private Button butAddUser;
     }
 }
