@@ -18,12 +18,9 @@ namespace ProjectsLibraryWinForms.Forms.Users
             var userName = textUserName.Text;
             var userPassword = textUserPassword.Text;
 
-            if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(userPassword))
-            {
-                _userService.AddUser(userName, userPassword);
-                Close();
-            }
-            else
+            var isAddedUser = _userService.AddUser(userName, userPassword);
+
+            if (!isAddedUser)
             {
                 MessageBox.Show("Вы ввели некорректные данные", "Ошибка",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);

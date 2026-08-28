@@ -25,8 +25,14 @@ namespace App.BL.Services
         /// </summary>
         /// <param name="name">Имя</param>
         /// <param name="password">Пароль</param>
-        public void AddUser(string name, string password)
+        /// <returns>True - добавлен. False - некорректные данные</returns>
+        public bool AddUser(string name, string password)
         {
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(password))
+            {
+                return false;
+            }
+
             var user = new UserDbModel()
             {
                 Name = name,
@@ -34,6 +40,7 @@ namespace App.BL.Services
             };
 
             _userRepository.Add(user);
+            return true;
         }
 
         /// <summary>
