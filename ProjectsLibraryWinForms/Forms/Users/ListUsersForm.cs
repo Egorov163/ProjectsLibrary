@@ -36,8 +36,35 @@ namespace ProjectsLibraryWinForms.Forms.Users
 
             if (listUsersForms.DialogResult == DialogResult.OK)
             {
-                ListUsers_Load( sender, e);
+                ListUsers_Load(sender, e);
             }
+        }
+
+        private void butDeleteUser_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Не выбран пользователь для удаления",
+                    "Внимание",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            var selectedRows = dataGridView1.SelectedRows;
+
+            for (int i = 0; i < selectedRows.Count; i++)
+            {
+                var o = dataGridView1.SelectedRows[i].DataBoundItem as UserViewModel;
+
+                if (o != null)
+                {
+                    _userService.RemoveUser(o.UserId);
+                }
+            }
+
+            ListUsers_Load(sender, e);
         }
     }
 }
