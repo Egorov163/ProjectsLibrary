@@ -12,18 +12,22 @@ namespace App.BL.Data.DbModels
         /// Пользователь.
         /// </summary>
         public UserDbModel User { get; set; }
+
         /// <summary>
         /// Название чая.
         /// </summary>
         public string Name { get; set; }
+
         /// <summary>
         /// Тип чая.
         /// </summary>
-        public TeaType Type { get; set; }
+        public string Type { get; set; }
+
         /// <summary>
         /// Дата покупки.
         /// </summary>
         public DateTimeOffset? DateBuy { get; set; }
+
         /// <summary>
         /// Описание чая.
         /// </summary>

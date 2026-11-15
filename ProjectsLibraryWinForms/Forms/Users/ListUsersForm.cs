@@ -1,6 +1,4 @@
-﻿using App.BL.Data.Repositories;
-using App.BL.Services;
-using Microsoft.VisualBasic.ApplicationServices;
+﻿using App.BL.Services;
 using ProjectsLibraryWinForms.Client.ViewModel;
 
 namespace ProjectsLibraryWinForms.Forms.Users
@@ -31,10 +29,10 @@ namespace ProjectsLibraryWinForms.Forms.Users
 
         private void butAddUser_Click(object sender, EventArgs e)
         {
-            var listUsersForms = new AddUserForm(_userService);
-            listUsersForms.ShowDialog();
+            var addUsersForm = new AddUserForm(_userService);
+            addUsersForm.ShowDialog();
 
-            if (listUsersForms.DialogResult == DialogResult.OK)
+            if (addUsersForm.DialogResult == DialogResult.OK)
             {
                 ListUsers_Load(sender, e);
             }
@@ -60,11 +58,22 @@ namespace ProjectsLibraryWinForms.Forms.Users
 
                 if (o != null)
                 {
-                    _userService.RemoveUser(o.UserId);
+                    _userService.RemoveUser(o.Id);
                 }
             }
 
             ListUsers_Load(sender, e);
+        }
+
+        private void buttonAuth_Click(object sender, EventArgs e)
+        {
+            var authForm = new AuthForm();
+            authForm.ShowDialog();
+
+            if (authForm.DialogResult == DialogResult.OK)
+            {
+                ListUsers_Load(sender, e);
+            }
         }
     }
 }

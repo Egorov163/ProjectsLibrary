@@ -11,10 +11,10 @@ namespace ProjectsLibraryWinForms.Client.ViewModel
         /// Имя пользователя
         /// </summary>
         public string Name { get; set; }
-        /// <summary>
-        /// Пароль пользователя
-        /// </summary>
-        public int UserId { get; set; }
 
+        /// <summary>
+        /// Идентификатор пользователя
+        /// </summary>
+        public int Id { get; set; }
     }
 }

@@ -35,6 +35,7 @@ namespace ProjectsLibraryWinForms
             // –егистрируем все формы, которые будут использовать DI
             services.AddScoped<MainForm>();
             services.AddScoped<ListUsersForm>();
+            services.AddScoped<ListTeaForm>();
 
             // —троим провайдер сервисов
             var ServiceProvider = services.BuildServiceProvider();

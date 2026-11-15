@@ -83,7 +83,7 @@ namespace App.BL.Services
                 Select(u => new UserViewModel()
                 {
                     Name = u.Name,
-                    UserId = u.Id,
+                    Id = u.Id,
                 }).
                 ToList();
 
@@ -98,6 +98,16 @@ namespace App.BL.Services
         public UserDbModel? GetUserByName(string name)
         {
             return _userRepository.GetUserByName(name);
+        }
+
+        /// <summary>
+        /// Получить пользователя по id
+        /// </summary>
+        /// <param name="name">Id</param>
+        /// <returns>Пользователь</returns>
+        public UserDbModel? GetUserById(int id)
+        {
+            return _userRepository.GetById(id);
         }
 
     }

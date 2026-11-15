@@ -31,6 +31,7 @@
             dataGridView1 = new DataGridView();
             butAddUser = new Button();
             butDeleteUser = new Button();
+            buttonAuth = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -64,11 +65,22 @@
             butDeleteUser.UseVisualStyleBackColor = true;
             butDeleteUser.Click += butDeleteUser_Click;
             // 
+            // buttonAuth
+            // 
+            buttonAuth.Location = new Point(326, 357);
+            buttonAuth.Name = "buttonAuth";
+            buttonAuth.Size = new Size(166, 37);
+            buttonAuth.TabIndex = 3;
+            buttonAuth.Text = "Аутентификация";
+            buttonAuth.UseVisualStyleBackColor = true;
+            buttonAuth.Click += buttonAuth_Click;
+            // 
             // ListUsersForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(buttonAuth);
             Controls.Add(butDeleteUser);
             Controls.Add(butAddUser);
             Controls.Add(dataGridView1);
@@ -84,5 +96,6 @@
         private DataGridView dataGridView1;
         private Button butAddUser;
         private Button butDeleteUser;
+        private Button buttonAuth;
     }
 }
