@@ -32,6 +32,7 @@
             labPassword = new Label();
             labNameUser = new Label();
             textUserName = new TextBox();
+            buttonLogin = new Button();
             SuspendLayout();
             // 
             // textUserPassword
@@ -66,11 +67,22 @@
             textUserName.Size = new Size(329, 27);
             textUserName.TabIndex = 4;
             // 
+            // buttonLogin
+            // 
+            buttonLogin.Location = new Point(12, 111);
+            buttonLogin.Name = "buttonLogin";
+            buttonLogin.Size = new Size(119, 39);
+            buttonLogin.TabIndex = 8;
+            buttonLogin.Text = "Войти";
+            buttonLogin.UseVisualStyleBackColor = true;
+            buttonLogin.Click += buttonLogin_Click;
+            // 
             // AuthForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(buttonLogin);
             Controls.Add(textUserPassword);
             Controls.Add(labPassword);
             Controls.Add(labNameUser);
@@ -87,5 +99,6 @@
         private Label labPassword;
         private Label labNameUser;
         private TextBox textUserName;
+        private Button buttonLogin;
     }
 }

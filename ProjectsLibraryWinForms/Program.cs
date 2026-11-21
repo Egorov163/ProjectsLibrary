@@ -1,3 +1,4 @@
+using App.BL.Contexts;
 using App.BL.Data;
 using App.BL.Data.Repositories;
 using App.BL.Services;
@@ -23,6 +24,7 @@ namespace ProjectsLibraryWinForms
 
             // Регистрируем контексты
             services.AddDbContext<AppDbContext>();
+            services.AddSingleton<UserContext>();
 
             // Регистрируем репозитории
             services.AddScoped<UserRepository>();

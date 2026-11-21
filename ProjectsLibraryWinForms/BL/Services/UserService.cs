@@ -101,6 +101,16 @@ namespace App.BL.Services
         }
 
         /// <summary>
+        /// Получить пользователя по имени и паролю
+        /// </summary>
+        /// <param name="name">Имя</param>
+        /// <returns>Пользователь</returns>
+        public UserDbModel? GetUserByNameAndPassword(string name, string password)
+        {
+            return _userRepository.GetUserByNameAndPassword(name, password);
+        }
+
+        /// <summary>
         /// Получить пользователя по id
         /// </summary>
         /// <param name="name">Id</param>

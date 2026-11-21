@@ -65,6 +65,7 @@
             labelAuth.Location = new Point(12, 28);
             labelAuth.Name = "labelAuth";
             labelAuth.Size = new Size(0, 20);
+            labelAuth.Text = "Вы вошли как гость";
             labelAuth.TabIndex = 2;
             // 
             // MainForm

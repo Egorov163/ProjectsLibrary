@@ -1,4 +1,5 @@
-﻿using App.BL.Services;
+﻿using App.BL.Contexts;
+using App.BL.Services;
 using ProjectsLibraryWinForms.Client.ViewModel;
 
 namespace ProjectsLibraryWinForms.Forms.Users
@@ -6,12 +7,14 @@ namespace ProjectsLibraryWinForms.Forms.Users
     public partial class ListUsersForm : Form
     {
         private readonly UserService _userService;
+        private readonly UserContext _userContext;
 
-        public ListUsersForm(UserService userService)
+        public ListUsersForm(UserService userService, UserContext userContext)
         {
             InitializeComponent();
 
             _userService = userService;
+            _userContext = userContext;
         }
 
         private void ListUsers_Load(object sender, EventArgs e)
@@ -67,13 +70,8 @@ namespace ProjectsLibraryWinForms.Forms.Users
 
         private void buttonAuth_Click(object sender, EventArgs e)
         {
-            var authForm = new AuthForm();
+            var authForm = new AuthForm(_userContext, _userService);
             authForm.ShowDialog();
-
-            if (authForm.DialogResult == DialogResult.OK)
-            {
-                ListUsers_Load(sender, e);
-            }
         }
     }
 }

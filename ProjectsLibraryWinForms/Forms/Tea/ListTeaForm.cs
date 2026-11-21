@@ -1,16 +1,19 @@
-﻿using App.BL.Services;
+﻿using App.BL.Contexts;
+using App.BL.Services;
 
 namespace ProjectsLibraryWinForms.Forms.Users
 {
     public partial class ListTeaForm : Form
     {
         private readonly TeaService _teaService;
+        private readonly UserContext _userContext;
 
-        public ListTeaForm(TeaService teaService)
+        public ListTeaForm(TeaService teaService, UserContext userContext)
         {
             InitializeComponent();
 
             _teaService = teaService;
+            _userContext = userContext;
         }
 
         private void ListTea_Load(object sender, EventArgs e)
