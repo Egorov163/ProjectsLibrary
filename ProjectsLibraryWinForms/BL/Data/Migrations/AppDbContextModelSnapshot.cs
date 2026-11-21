@@ -30,8 +30,8 @@ namespace App.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTimeOffset?>("DateBuy")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("DateBuy")
+                        .HasColumnType("date");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");

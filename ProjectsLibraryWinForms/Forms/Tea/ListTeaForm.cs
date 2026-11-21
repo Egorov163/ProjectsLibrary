@@ -16,19 +16,23 @@ namespace ProjectsLibraryWinForms.Forms.Users
             _userContext = userContext;
         }
 
+        /// <summary>
+        /// Список чая
+        /// </summary>
         private void ListTea_Load(object sender, EventArgs e)
         {
             var teaDb = _teaService.GetAllTea();
             var teaViewModels = _teaService.TeaMapper(teaDb);
 
-            dataGridView1.DataSource = teaViewModels;
-
-            
+            dataGridView1.DataSource = teaViewModels;           
         }
 
+        /// <summary>
+        /// Добавить чай
+        /// </summary>
         private void butAddTea_Click(object sender, EventArgs e)
         {
-            var addTeaForm = new AddTeaForm(_teaService);
+            var addTeaForm = new AddTeaForm(_teaService, _userContext);
             addTeaForm.ShowDialog();
 
             if (addTeaForm.DialogResult == DialogResult.OK)

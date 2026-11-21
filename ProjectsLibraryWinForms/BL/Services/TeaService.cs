@@ -43,7 +43,7 @@ namespace App.BL.Services
                     Description = t.Description,
                     Name = t.Name,
                     Type = t.Type,
-                    User = t.User
+                    User = t.User.Name
                 }).
                 ToList();
 

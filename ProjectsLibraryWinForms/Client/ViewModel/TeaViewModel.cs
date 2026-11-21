@@ -16,7 +16,7 @@ namespace ProjectsLibraryWinForms.Client.ViewModel
         /// <summary>
         /// Пользователь.
         /// </summary>
-        public UserDbModel User { get; set; }
+        public string User { get; set; }
 
         /// <summary>
         /// Название чая.
@@ -31,7 +31,7 @@ namespace ProjectsLibraryWinForms.Client.ViewModel
         /// <summary>
         /// Дата покупки.
         /// </summary>
-        public DateTimeOffset? DateBuy { get; set; }
+        public DateOnly DateBuy { get; set; }
 
         /// <summary>
         /// Описание чая.

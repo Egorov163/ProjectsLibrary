@@ -1,4 +1,5 @@
-﻿using App.BL.Data.DbModels;
+﻿using App.BL.Contexts;
+using App.BL.Data.DbModels;
 using App.BL.Data.Tea;
 using App.BL.Services;
 
@@ -7,11 +8,13 @@ namespace ProjectsLibraryWinForms.Forms.Users
     public partial class AddTeaForm : Form
     {
         private readonly TeaService _teaService;
+        private readonly UserContext _userContext;
 
-        public AddTeaForm(TeaService teaService)
+        public AddTeaForm(TeaService teaService, UserContext userContext)
         {
             InitializeComponent();
             _teaService = teaService;
+            _userContext = userContext;
 
             InitValues();
         }
@@ -25,21 +28,22 @@ namespace ProjectsLibraryWinForms.Forms.Users
 
         private void butAdd_Click(object sender, EventArgs e)
         {
+            var user = _userContext.CurrentUser;
             var teaName = textTeaName.Text;
             var type = comboBoxType.SelectedItem.ToString();
-            var dateBuy = dateTimeDateBuy.Value;
+            var dateBuy = DateOnly.FromDateTime(dateTimeDateBuy.Value); ;
             var description = textBoxDescription.Text;
 
-            //var dbModel = new TeaDbModel()
-            //{
-            //    Name = teaName,
-            //    DateBuy = dateBuy,
-            //    Description = description,
-            //    Type = type,
-            //    User = 
-            //};
+            var dbModel = new TeaDbModel()
+            {
+                Name = teaName,
+                DateBuy = dateBuy,
+                Description = description,
+                Type = type,
+                User = user
+            };
 
-            //_teaService.AddTea();
+            _teaService.AddTea(dbModel);
         }
 
         private void labelDateBuy_Click(object sender, EventArgs e)
