@@ -33,6 +33,13 @@ namespace App.BL.Services
                 return false;
             }
 
+            var isDuplication = _userRepository.GetUserByName(name) is not null ? true : false;
+
+            if (isDuplication)
+            {
+                return false;
+            }
+
             var user = new UserDbModel()
             {
                 Name = name,
