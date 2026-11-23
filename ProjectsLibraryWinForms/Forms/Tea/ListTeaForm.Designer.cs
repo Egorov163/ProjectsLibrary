@@ -61,6 +61,7 @@
             butDeleteTea.TabIndex = 2;
             butDeleteTea.Text = "Удалить";
             butDeleteTea.UseVisualStyleBackColor = true;
+            butDeleteTea.Click += butDeleteTea_Click;
             // 
             // ListTeaForm
             // 

@@ -1,5 +1,6 @@
 ﻿using App.BL.Contexts;
 using App.BL.Services;
+using ProjectsLibraryWinForms.Client.ViewModel;
 
 namespace ProjectsLibraryWinForms.Forms.Users
 {
@@ -24,7 +25,7 @@ namespace ProjectsLibraryWinForms.Forms.Users
             var teaDb = _teaService.GetAllTea();
             var teaViewModels = _teaService.TeaMapper(teaDb);
 
-            dataGridView1.DataSource = teaViewModels;           
+            dataGridView1.DataSource = teaViewModels;
         }
 
         /// <summary>
@@ -43,8 +44,29 @@ namespace ProjectsLibraryWinForms.Forms.Users
 
         private void butDeleteTea_Click(object sender, EventArgs e)
         {
+            if (dataGridView1.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Не выбран чай для удаления",
+                    "Внимание",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
 
+                return;
+            }
+
+            var selectedRows = dataGridView1.SelectedRows;
+
+            for (int i = 0; i < selectedRows.Count; i++)
+            {
+                var o = dataGridView1.SelectedRows[i].DataBoundItem as TeaViewModel;
+
+                if (o != null)
+                {
+                    _teaService.RemoveTea(o.Id);
+                }
+            }
+
+            ListTea_Load(sender, e);
         }
-
     }
 }
