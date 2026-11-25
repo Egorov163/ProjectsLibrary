@@ -58,7 +58,7 @@ namespace App.BL.Moduls
                 switch (request)
                 {
                     case 1:
-                        AddTea();
+                        //AddTea();
                         break;
                     case 2:
                         RemoveTea();
@@ -92,32 +92,32 @@ namespace App.BL.Moduls
             throw new NotImplementedException();
         }
 
-        private void AddTea()
-        {
+        //private void AddTea()
+        //{
 
-            var teaName = HelperService.RequestStringInput("Введите название чая");
+        //    var teaName = HelperService.RequestStringInput("Введите название чая");
 
-            if (teaName is not null)
-            {
-                var teaType = HelperService.RequestEnumInput<TeaType>("Выберите тип чая");
+        //    if (teaName is not null)
+        //    {
+        //        var teaType = HelperService.RequestEnumInput<TeaType>("Выберите тип чая");
 
-                if (teaType is not null)
-                {
-                    var dateBuy = HelperService.RequestDateTimeInput("Введите дату покупки, в формате dd.mm.yyyy");
-                    var description = HelperService.RequestStringInput("Введите описание чая");
+        //        if (teaType is not null)
+        //        {
+        //            var dateBuy = HelperService.RequestDateTimeInput("Введите дату покупки, в формате dd.mm.yyyy");
+        //            var description = HelperService.RequestStringInput("Введите описание чая");
 
-                    var tea = new TeaDbModel()
-                    {
-                        User = _userContext.CurrentUser,
-                        Name = teaName,
-                        Description = description,
-                        Type = (TeaType)teaType,
-                        DateBuy = dateBuy
-                    };
+        //            var tea = new TeaDbModel()
+        //            {
+        //                User = _userContext.CurrentUser,
+        //                Name = teaName,
+        //                Description = description,
+        //                Type = (TeaType)teaType.ToString(),
+        //                DateBuy = dateBuy
+        //            };
 
-                    _teaService.AddTea(tea);
-                }
-            }
-        }
+        //            _teaService.AddTea(tea);
+        //        }
+        //    }
+        //}
     }
 }

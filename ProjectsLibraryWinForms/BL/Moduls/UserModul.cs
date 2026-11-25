@@ -95,7 +95,7 @@ namespace App.BL.Moduls
                 var user = _userService.GetUserByName(name);
                 if (user is not null)
                 {
-                    _userContext.CurrentUser = user;
+                    _userContext.SignIn(user);
                     Console.WriteLine($"Вы вошли как {user.Name}.");
                 }
                 else
@@ -124,7 +124,7 @@ namespace App.BL.Moduls
                 {
                     _userService.AddUser(name, password);
                     Console.WriteLine("Пользователь создан!");
-                    _userContext.CurrentUser = _userService.GetUserByName(name);
+                    //_userContext.CurrentUser = _userService.GetUserByName(name);
                 }
                 else
                 {

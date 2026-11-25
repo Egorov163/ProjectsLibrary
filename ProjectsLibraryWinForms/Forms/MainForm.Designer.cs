@@ -31,6 +31,7 @@
             menuStrip1 = new MenuStrip();
             пользователиToolStripMenuItem1 = new ToolStripMenuItem();
             чайToolStripMenuItem = new ToolStripMenuItem();
+            labelAuth = new Label();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -56,12 +57,23 @@
             чайToolStripMenuItem.Name = "чайToolStripMenuItem";
             чайToolStripMenuItem.Size = new Size(50, 24);
             чайToolStripMenuItem.Text = "Чай";
+            чайToolStripMenuItem.Click += TeaToolStripMenuItem_Click;
+            // 
+            // labelAuth
+            // 
+            labelAuth.AutoSize = true;
+            labelAuth.Location = new Point(12, 28);
+            labelAuth.Name = "labelAuth";
+            labelAuth.Size = new Size(0, 20);
+            labelAuth.Text = "Вы вошли как гость";
+            labelAuth.TabIndex = 2;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(labelAuth);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "MainForm";
@@ -77,5 +89,6 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem пользователиToolStripMenuItem1;
         private ToolStripMenuItem чайToolStripMenuItem;
+        private Label labelAuth;
     }
 }

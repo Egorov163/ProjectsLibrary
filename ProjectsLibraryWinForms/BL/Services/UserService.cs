@@ -25,8 +25,21 @@ namespace App.BL.Services
         /// </summary>
         /// <param name="name">Имя</param>
         /// <param name="password">Пароль</param>
-        public void AddUser(string name, string password)
+        /// <returns>True - добавлен. False - некорректные данные</returns>
+        public bool AddUser(string name, string password)
         {
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(password))
+            {
+                return false;
+            }
+
+            var isDuplication = _userRepository.GetUserByName(name) is not null ? true : false;
+
+            if (isDuplication)
+            {
+                return false;
+            }
+
             var user = new UserDbModel()
             {
                 Name = name,
@@ -34,6 +47,7 @@ namespace App.BL.Services
             };
 
             _userRepository.Add(user);
+            return true;
         }
 
         /// <summary>
@@ -76,7 +90,7 @@ namespace App.BL.Services
                 Select(u => new UserViewModel()
                 {
                     Name = u.Name,
-                    UserId = u.Id,
+                    Id = u.Id,
                 }).
                 ToList();
 
@@ -91,6 +105,26 @@ namespace App.BL.Services
         public UserDbModel? GetUserByName(string name)
         {
             return _userRepository.GetUserByName(name);
+        }
+
+        /// <summary>
+        /// Получить пользователя по имени и паролю
+        /// </summary>
+        /// <param name="name">Имя</param>
+        /// <returns>Пользователь</returns>
+        public UserDbModel? GetUserByNameAndPassword(string name, string password)
+        {
+            return _userRepository.GetUserByNameAndPassword(name, password);
+        }
+
+        /// <summary>
+        /// Получить пользователя по id
+        /// </summary>
+        /// <param name="name">Id</param>
+        /// <returns>Пользователь</returns>
+        public UserDbModel? GetUserById(int id)
+        {
+            return _userRepository.GetById(id);
         }
 
     }

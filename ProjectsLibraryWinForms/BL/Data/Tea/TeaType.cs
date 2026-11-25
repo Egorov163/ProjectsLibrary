@@ -24,6 +24,8 @@
             /// <summary>Шу Пуэр</summary>
         ShuPuer,
             /// <summary>Шен пуэр</summary>
-        ShengPuer
+        ShengPuer,
+        /// <summary>Габа</summary>
+        Gaba
     }
 }

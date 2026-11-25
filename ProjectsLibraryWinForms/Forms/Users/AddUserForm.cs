@@ -15,7 +15,16 @@ namespace ProjectsLibraryWinForms.Forms.Users
 
         private void butAdd_Click(object sender, EventArgs e)
         {
+            var userName = textUserName.Text;
+            var userPassword = textUserPassword.Text;
 
+            var isAddedUser = _userService.AddUser(userName, userPassword);
+
+            if (!isAddedUser)
+            {
+                MessageBox.Show("Вы ввели некорректные данные", "Ошибка",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

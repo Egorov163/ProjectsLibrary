@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            teNameUser = new TextBox();
+            textUserName = new TextBox();
             labNameUser = new Label();
             labPassword = new Label();
-            texPassword = new TextBox();
+            textUserPassword = new TextBox();
             butAdd = new Button();
             SuspendLayout();
             // 
-            // teNameUser
+            // textUserName
             // 
-            teNameUser.Location = new Point(157, 6);
-            teNameUser.Name = "teNameUser";
-            teNameUser.Size = new Size(329, 27);
-            teNameUser.TabIndex = 0;
+            textUserName.Location = new Point(157, 6);
+            textUserName.Name = "textUserName";
+            textUserName.Size = new Size(329, 27);
+            textUserName.TabIndex = 0;
             // 
             // labNameUser
             // 
@@ -60,15 +60,16 @@
             labPassword.TabIndex = 2;
             labPassword.Text = "Пароль";
             // 
-            // texPassword
+            // textUserPassword
             // 
-            texPassword.Location = new Point(157, 39);
-            texPassword.Name = "texPassword";
-            texPassword.Size = new Size(329, 27);
-            texPassword.TabIndex = 3;
+            textUserPassword.Location = new Point(157, 39);
+            textUserPassword.Name = "textUserPassword";
+            textUserPassword.Size = new Size(329, 27);
+            textUserPassword.TabIndex = 3;
             // 
             // butAdd
             // 
+            butAdd.DialogResult = DialogResult.OK;
             butAdd.Location = new Point(12, 403);
             butAdd.Name = "butAdd";
             butAdd.Size = new Size(213, 35);
@@ -83,10 +84,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(butAdd);
-            Controls.Add(texPassword);
+            Controls.Add(textUserPassword);
             Controls.Add(labPassword);
             Controls.Add(labNameUser);
-            Controls.Add(teNameUser);
+            Controls.Add(textUserName);
             Name = "AddUserForm";
             Text = "AddUserForm";
             ResumeLayout(false);
@@ -95,10 +96,10 @@
 
         #endregion
 
-        private TextBox teNameUser;
+        private TextBox textUserName;
         private Label labNameUser;
         private Label labPassword;
-        private TextBox texPassword;
+        private TextBox textUserPassword;
         private Button butAdd;
     }
 }

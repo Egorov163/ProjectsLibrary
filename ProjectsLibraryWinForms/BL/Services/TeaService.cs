@@ -1,6 +1,6 @@
 ﻿using App.BL.Data.DbModels;
 using App.BL.Data.Repositories;
-using App.BL.Data.Tea;
+using ProjectsLibraryWinForms.Client.ViewModel;
 
 namespace App.BL.Services
 {
@@ -20,9 +20,52 @@ namespace App.BL.Services
             _teaRepository = teaRepository;
         }
 
+        /// <summary>
+        /// Получить список всего чая.
+        /// </summary>
+        /// <returns>Список чая</returns>
+        public List<TeaDbModel> GetAllTea()
+        {
+            return _teaRepository.GetAll();
+        }
+
+        /// <summary>
+        /// Маппер из бд во вью модель.
+        /// </summary>
+        /// <returns>Список чая</returns>
+        public List<TeaViewModel> TeaMapper(List<TeaDbModel> teaDbModels)
+        {
+            var users = teaDbModels.
+                Select(t => new TeaViewModel()
+                {
+                    Id = t.Id,
+                    DateBuy = t.DateBuy,
+                    Description = t.Description,
+                    Name = t.Name,
+                    Type = t.Type,
+                    User = t.User.Name
+                }).
+                ToList();
+
+            return users;
+        }
+
+        /// <summary>
+        /// Добавить чай.
+        /// </summary>
+        /// <param name="teaDbModel"></param>
         public void AddTea(TeaDbModel teaDbModel)
         {
             _teaRepository.Add(teaDbModel);
+        }
+
+        /// <summary>
+        /// Удалить чай.
+        /// </summary>
+        /// <param name="id">id чая.</param>
+        public void RemoveTea(int id)
+        {
+            var user = _teaRepository.Remove(id);
         }
     }
 }
