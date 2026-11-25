@@ -114,6 +114,11 @@ namespace App.BL.Services
         /// <returns>Пользователь</returns>
         public UserDbModel? GetUserByNameAndPassword(string name, string password)
         {
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(password))
+            {
+                return null;
+            }
+
             return _userRepository.GetUserByNameAndPassword(name, password);
         }
 
