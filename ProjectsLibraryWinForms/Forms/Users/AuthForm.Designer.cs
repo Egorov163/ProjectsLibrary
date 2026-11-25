@@ -41,6 +41,7 @@
             textUserPassword.Name = "textUserPassword";
             textUserPassword.Size = new Size(329, 27);
             textUserPassword.TabIndex = 7;
+            textUserPassword.UseSystemPasswordChar = true;
             // 
             // labPassword
             // 
