@@ -23,7 +23,19 @@ namespace ProjectsLibraryWinForms
             _userService = userService;
             _teaService = teaService;
 
+            AddSeed();
+
             _userContext.UserChanged += UpdateUserNameLabel;
+        }
+
+        private void AddSeed()
+        {
+            AddSeedAdmin();
+        }
+
+        private void AddSeedAdmin()
+        {
+            _userService.AddUser("admin", "admin");
         }
 
         private void UpdateUserNameLabel()

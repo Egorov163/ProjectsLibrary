@@ -57,11 +57,21 @@ namespace ProjectsLibraryWinForms.Forms.Users
 
             for (int i = 0; i < selectedRows.Count; i++)
             {
-                var o = dataGridView1.SelectedRows[i].DataBoundItem as UserViewModel;
+                var user = dataGridView1.SelectedRows[i].DataBoundItem as UserViewModel;
 
-                if (o != null)
+                if (user != null)
                 {
-                    _userService.RemoveUser(o.Id);
+                    if (user.Name == "admin")
+                    {
+                        MessageBox.Show("Админа нельзя удалить",
+                        "Внимание",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+
+                        return;
+                    }
+
+                    _userService.RemoveUser(user.Id);
                 }
             }
 
